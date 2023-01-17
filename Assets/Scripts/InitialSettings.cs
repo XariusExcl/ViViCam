@@ -19,6 +19,6 @@ public class InitialSettings : MonoBehaviour
 
         // Set Vsync
         QualitySettings.vSyncCount = 1;
-        Application.targetFrameRate = 60;
+        // Application.targetFrameRate = 60;
     }
 }

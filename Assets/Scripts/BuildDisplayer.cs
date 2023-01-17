@@ -23,7 +23,7 @@ public class BuildDisplayer : MonoBehaviour
         }
         else
         {
-            Text.SetText($"ViViCam version: {Application.version} | App build:{buildScriptableObject.BuildDate}.{buildScriptableObject.BuildNumber}");
+            Text.SetText($"ViViCam version: 0.4 | App build:{buildScriptableObject.BuildDate}.{buildScriptableObject.BuildNumber}");
         }
     }
 }

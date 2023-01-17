@@ -105,7 +105,6 @@ public class UdpTrackingReceiver : MonoBehaviour {
                 // Parse data
                 StringBuilder _sb = new StringBuilder();
                 int _state = 0;
-                float[] _floats = new float[7];
                 string _deviceName = "";
 
                 for (int i = 0; i < _data.Length; i++)
@@ -128,6 +127,7 @@ public class UdpTrackingReceiver : MonoBehaviour {
                             _sb.Append(c);
                         break;
                         case 2: // Getting the XYZ position values and WXYZ rotation quaternion
+                            float[] _floats = new float[7];
                             for (int j = 0; j < 7; j++)
                             {
                                 _floats[j] = BitConverter.ToSingle(_data, i);

@@ -14,7 +14,7 @@ public class SettingsScreenManager : MonoBehaviour
     public TMP_Text trackingServerStatusText;
     public RawImage performanceStatus;
     public TMP_Text performanceStatusText;
-    public Camera camera;
+    public new Camera camera;
 
     List<TMP_Dropdown.OptionData> dropdownOptions;
 
@@ -51,6 +51,7 @@ public class SettingsScreenManager : MonoBehaviour
 
             trackingServerStatusText.text = $"Serveur connecté ({udpTrackingReceiver.MeasuredFrequency}Hz)";
         } else {
+            UpdateTrackingSources();
             _isFirstFrameofConnected = true;
             trackingServerStatus.color = Color.red;
             trackingServerStatusText.text = "Serveur de tracking déconnecté";
@@ -67,21 +68,32 @@ public class SettingsScreenManager : MonoBehaviour
 
         performanceStatusText.text = $"Performance : {((int)_frameRate).ToString()} ips";
     }
+
     void UpdateTrackingSources()
     {
-        List<string> _currentDropdownOptions = new List<string>();
-        foreach(TMP_Dropdown.OptionData option in trackingSourceDropdown.options)
+        dropdownOptions = new List<TMP_Dropdown.OptionData>();
+        if (udpTrackingReceiver.IsServerConnected)
         {
-            _currentDropdownOptions.Add(option.text);
-        }
+            trackingSourceDropdown.interactable = true;
+            /*
+            List<string> _currentDropdownOptions = new List<string>();
+            foreach(TMP_Dropdown.OptionData option in trackingSourceDropdown.options)
+            {
+                _currentDropdownOptions.Add(option.text);
+            }
+            */
 
-        foreach(string option in udpTrackingReceiver.GetTrackingDevicesNames())
-        {
-            // Debug.Log(option);
-            if (!_currentDropdownOptions.Contains(option))
-                dropdownOptions.Add(new TMP_Dropdown.OptionData(option));
-        }
+            foreach(string option in udpTrackingReceiver.GetTrackingDevicesNames())
+            {
+                // Debug.Log(option);
+                // if (!_currentDropdownOptions.Contains(option))
+                    dropdownOptions.Add(new TMP_Dropdown.OptionData(option));
+            }
 
+        } else {
+            dropdownOptions.Add(new TMP_Dropdown.OptionData("Aucune (déconnecté)"));
+            trackingSourceDropdown.interactable = false;
+        }
         trackingSourceDropdown.options = dropdownOptions;
     }
 
@@ -94,5 +106,11 @@ public class SettingsScreenManager : MonoBehaviour
     public void SetCameraFocalLength(string length)
     {
         camera.focalLength = float.Parse(length);
+    }
+
+    public void SetSceneVSyncCount(string count)
+    {
+        Debug.Log("set vsyng to "+ count);
+        QualitySettings.vSyncCount = int.Parse(count);
     }
 }
