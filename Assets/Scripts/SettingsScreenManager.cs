@@ -110,7 +110,7 @@ public class SettingsScreenManager : MonoBehaviour
 
     public void SetSceneVSyncCount(string count)
     {
-        Debug.Log("set vsyng to "+ count);
+        Debug.Log($"Set vSync count to {count}");
         QualitySettings.vSyncCount = int.Parse(count);
     }
 }

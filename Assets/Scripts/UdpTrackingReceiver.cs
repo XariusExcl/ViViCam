@@ -35,21 +35,6 @@ public class UdpTrackingReceiver : MonoBehaviour {
         // Check if last message arrived in less than a second, otherwise consider server is disconnected
         TimeSpan difference = DateTime.UtcNow - lastMessageReceivedTime;
         IsServerConnected = (difference.TotalMilliseconds < 1000f);
-        
-        /*
-        string names = "";
-        foreach(KeyValuePair<string, float[]> entry in trackingPoints)
-        {
-            names += "\n" + entry.Key;
-            foreach(float val in entry.Value){
-                names += val + " ";
-            }
-        }
-        UnityEngine.Debug.Log(names);
-        */
-        
-
-        // UnityEngine.Debug.Log($"Server connected: {IsServerConnected}, Measured Tick Time: {MeasuredTickTime.ToString("0.00")}ms.");
     }
 	
     void OnApplicationQuit()
